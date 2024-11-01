@@ -1,3 +1,5 @@
+[![Pylint](https://github.com/plpabla/agh_ai_flask_demo/actions/workflows/pylint.yml/badge.svg?branch=master)](https://github.com/plpabla/agh_ai_flask_demo/actions/workflows/pylint.yml)
+
 # Endpoints
 
 # `GET /`
