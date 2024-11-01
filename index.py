@@ -3,6 +3,7 @@ Also placed here the calculation logic as it is a simple demo app.
 """
 
 from flask import Flask, request
+from calculator import Calculator
 
 app = Flask(__name__)
 
@@ -30,18 +31,24 @@ def calculate():
     arg1 = float(request.args.get("arg1", 0))
     arg2 = float(request.args.get("arg2", 0))
 
-    if operation == "sum":
-        result = arg1 + arg2
-    elif operation == "diff":
-        result = arg1 - arg2
-    elif operation == "mul":
-        result = arg1 * arg2
-    elif operation == "div":
-        if arg2 != 0:
-            result = arg1 / arg2
-        else:
-            return "Error: Division by zero", 400
-    else:
+    if operation is None:
+        return "Error: No operation provided", 400
+
+    if operation not in ["sum", "diff", "mul", "div"]:
         return "Error: Invalid operation", 400
+
+    if operation == "div" and arg2 == 0:
+        return "Error: Division by zero", 400
+
+    calculator = Calculator(arg1, arg2)
+    result = None
+    if operation == "sum":
+        result = calculator.sum()
+    elif operation == "diff":
+        result = calculator.diff()
+    elif operation == "mul":
+        result = calculator.mul()
+    elif operation == "div":
+        result = calculator.div()
 
     return str(result)
